@@ -145,14 +145,6 @@ export default function Footer() {
 
 
             <a
-              href="#demo"
-              className="inline-block mt-5 bg-mobicheque-green px-6 py-3 rounded-full font-semibold hover:opacity-90 transition"
-            >
-              Request a Demo
-            </a>
-
-
-            <a
               href="mailto:mobicheque@gmail.com"
               className="block mt-4 text-gray-300 hover:text-white transition"
             >

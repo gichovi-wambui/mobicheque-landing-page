@@ -6,7 +6,6 @@ import Features from "../components/Features";
 import Solutions from "../components/Solutions";
 import Security from "../components/Security";
 import CTA from "../components/CTA";
-import DemoModal from "@/components/DemoModal";
 import Footer from "../components/Footer";
 
 export default function Home() {
@@ -20,7 +19,6 @@ export default function Home() {
       <Solutions />
       <Security />
       <CTA />
-      <DemoModal />
       <Footer />
     </>
   );

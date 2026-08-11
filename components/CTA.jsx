@@ -20,12 +20,6 @@ export default function CTA() {
           </p>
 
 
-
-          <button className="mt-8 bg-mobicheque-green text-white px-10 py-4 rounded-full font-semibold hover:opacity-90 transition">
-            Request a Demo
-          </button>
-
-
         </div>
 
 
