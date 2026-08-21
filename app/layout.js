@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SITE_URL } from "../lib/site";
 import ScrollProgress from "../components/ScrollProgress";
 import BackToTop from "../components/BackToTop";
 import MobileCta from "../components/MobileCta";
@@ -18,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://mobicheque.co.ke"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "MobiCheque | Verify every cheque before you clear it",
     template: "%s | MobiCheque",

@@ -5,6 +5,10 @@ export const alt =
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Required under output: "export" -- generate the card once at build time
+// rather than per request.
+export const dynamic = "force-static";
+
 /**
  * Generated at build time so shared links preview properly. Kept in plain
  * inline styles because next/og supports only a subset of CSS.

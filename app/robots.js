@@ -1,4 +1,8 @@
-const SITE_URL = "https://mobicheque.co.ke";
+import { SITE_URL } from "../lib/site";
+
+// Required under output: "export" -- emit a static file at build time.
+export const dynamic = "force-static";
+
 
 export default function robots() {
   return {

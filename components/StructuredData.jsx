@@ -1,3 +1,4 @@
+import { SITE_URL } from "../lib/site";
 /**
  * JSON-LD structured data.
  *
@@ -9,7 +10,6 @@
  * Update SITE_URL to the production domain.
  */
 
-const SITE_URL = "https://mobicheque.co.ke";
 
 const organization = {
   "@context": "https://schema.org",

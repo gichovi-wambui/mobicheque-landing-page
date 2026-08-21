@@ -1,8 +1,12 @@
+import { SITE_URL } from "../lib/site";
 /**
  * Update SITE_URL to the production domain (it must match `metadataBase`
  * in app/layout.js). New pages need adding here.
  */
-const SITE_URL = "https://mobicheque.co.ke";
+
+// Required under output: "export" -- emit a static file at build time.
+export const dynamic = "force-static";
+
 
 const ROUTES = [
   { path: "", priority: 1.0, changeFrequency: "monthly" },

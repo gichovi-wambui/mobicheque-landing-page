@@ -1,0 +1,69 @@
+# A static site, not a Node web service.
+#
+# Every route prerenders at build time and nothing here needs a server: no
+# sessions, no server actions, no API routes. The demo form composes a mailto
+# rather than posting anywhere, and the ROI calculator runs in the browser.
+#
+# This matters on the free plan. A free Render *web service* spins down after
+# inactivity and cold-starts in roughly 50 seconds -- unacceptable for a page
+# a bank clicks into from an email. A static site is CDN-backed and always on.
+
+services:
+  - type: web
+    name: mobicheque-landing
+    runtime: static
+
+    # Same region as the backend and console, for consistency. Nothing here
+    # calls them, so this is not on any critical path.
+    region: frankfurt
+
+    buildCommand: npm ci && npm run build
+    staticPublishPath: out
+
+    pullRequestPreviewsEnabled: false
+
+    envVars:
+      # Next 16 needs 20.9 or newer. Pinned to match the console.
+      - key: NODE_VERSION
+        value: 22.11.0
+
+      # Baked into absolute URLs at build time: the Open Graph card, the
+      # sitemap and the JSON-LD. It MUST match the origin the site is actually
+      # served from, or link previews point at a domain that does not resolve.
+      #
+      # Set to the onrender.com URL until a custom domain is attached, then
+      # change it here and redeploy.
+      - key: NEXT_PUBLIC_SITE_URL
+        value: https://mobicheque-landing.onrender.com
+
+    headers:
+      # next/og emits the card with no file extension, so it would otherwise
+      # be served as application/octet-stream and every share preview would
+      # break. Force the type.
+      - path: /opengraph-image
+        name: Content-Type
+        value: image/png
+
+      # Hashed filenames, so they can be cached indefinitely.
+      - path: /_next/static/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+
+    # No routes block on purpose. This is a multi-page site, not an SPA, so a
+    # catch-all rewrite is wrong here: it would return HTTP 200 with the 404
+    # page body for missing paths, which is worse for search engines than a
+    # real 404. Next's export writes out/404.html and Render serves it for
+    # unmatched paths. Worth confirming on the first deploy by requesting a
+    # path that does not exist and checking the status code is 404.
