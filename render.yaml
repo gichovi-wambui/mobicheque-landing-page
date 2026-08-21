@@ -13,9 +13,10 @@ services:
     name: mobicheque-landing
     runtime: static
 
-    # Same region as the backend and console, for consistency. Nothing here
-    # calls them, so this is not on any critical path.
-    region: frankfurt
+    # No `region` here on purpose. Static sites are served from Render's
+    # global CDN and reject the field -- it is only valid on services that
+    # actually run somewhere (web, worker, cron). The console sets it because
+    # it is a Node service; this is not.
 
     buildCommand: npm ci && npm run build
     staticPublishPath: out
@@ -37,13 +38,6 @@ services:
         value: https://mobicheque-landing.onrender.com
 
     headers:
-      # next/og emits the card with no file extension, so it would otherwise
-      # be served as application/octet-stream and every share preview would
-      # break. Force the type.
-      - path: /opengraph-image
-        name: Content-Type
-        value: image/png
-
       # Hashed filenames, so they can be cached indefinitely.
       - path: /_next/static/*
         name: Cache-Control

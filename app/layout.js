@@ -41,12 +41,14 @@ export const metadata = {
     title: "MobiCheque | Verify every cheque before you clear it",
     description:
       "Scan, extract, verify and track cheques — with a full audit trail behind every decision.",
+    images: ["/og.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "MobiCheque | Verify every cheque before you clear it",
     description:
       "Scan, extract, verify and track cheques — with a full audit trail behind every decision.",
+    images: ["/og.png"],
   },
 };
 
