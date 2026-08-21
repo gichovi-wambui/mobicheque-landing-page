@@ -1,102 +1,76 @@
+import Reveal from "./Reveal";
+
+const STATS = [
+  { value: "4", label: "Checks on every cheque" },
+  { value: "5", label: "Fields extracted automatically" },
+  { value: "100%", label: "Submissions with an audit trail" },
+];
+
 export default function About() {
   return (
-    <section id="about" className="bg-white py-24">
-
-      <div className="max-w-7xl mx-auto px-6">
-
-
-        {/* Section Heading */}
-        <div className="text-center mb-16">
-
-          <p className="text-mobicheque-green text-3xl font-bold uppercase tracking-wide">
-            About Us
-          </p>
-
-          <h2 className="mt-4 text-2xl md:text-3xl font-bold text-mobicheque-dark leading-tight">
-            From Traditional Transactions to a Digital Future
-          </h2>
-
-          <p className="mt-5 max-w-3xl mx-auto text-lg text-gray-600 leading-relaxed">
-            Financial services are evolving toward faster, more connected
-            digital experiences. We believe cheque transactions should evolve
-            with them.
-          </p>
-
-        </div>
-
-
-
-        {/* Main Content */}
-        <div className="grid md:grid-cols-2 gap-14 items-center">
-
-
-          {/* Left - Image */}
-          <div className="flex justify-center">
-
-            <img
-              src="/images/About.jpeg"
-              alt="Transition from traditional cheque processing to digital financial technology"
-              className="w-full max-w-xl rounded-3xl shadow-lg"
-            />
-
-          </div>
-
-
-
-          {/* Right - Content */}
+    <section id="about" className="bg-mc-green-dark py-24 text-white md:py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid items-center gap-14 lg:grid-cols-2">
+          {/* Copy */}
           <div>
+            <Reveal>
+              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-mc-green">
+                <span className="h-1 w-1 rounded-full bg-mc-green" />
+                Our position
+              </span>
+            </Reveal>
 
-            <h3 className="text-2xl md:text-3xl font-bold text-mobicheque-dark leading-tight">
-              Bringing Cheque Transactions Into the Digital Age
-            </h3>
+            <Reveal delay={60}>
+              <h2 className="mt-4 text-3xl font-semibold leading-[1.12] tracking-[-0.02em] text-balance md:text-4xl lg:text-[2.75rem]">
+                We are not trying to replace the cheque.
+              </h2>
+            </Reveal>
 
-
-            <p className="mt-6 text-lg text-gray-600 leading-relaxed">
-              For years, cheque transactions have relied on physical processes,
-              paperwork, and traditional workflows. As the financial world
-              continues to move toward digital experiences, there is an
-              opportunity to bring the same evolution to cheque processing.
-            </p>
-
-
-            <p className="mt-5 text-lg text-gray-600 leading-relaxed">
-              MobiCheque is built around that transition — helping connect
-              established cheque-based transactions with modern digital
-              financial infrastructure.
-            </p>
-
-
-            <p className="mt-5 text-lg text-gray-600 leading-relaxed">
-              Our vision is to make cheque transactions more digitally
-              accessible, connected, and transparent while preserving the
-              role cheques continue to play for businesses, institutions,
-              and customers.
-            </p>
-
-
-
-            {/* Vision Highlight */}
-            <div className="mt-8 border-l-4 border-mobicheque-green pl-6">
-
-              <p className="text-sm font-semibold uppercase tracking-wide text-mobicheque-green">
-                Our Vision
+            <Reveal delay={120}>
+              <p className="mt-6 text-lg leading-relaxed text-white/70">
+                Cheques still carry real weight in how institutions and
+                businesses settle with each other. What has not kept up is
+                everything around them &mdash; the branch trip, the waiting, the
+                silence after handing one over.
               </p>
+            </Reveal>
 
-              <p className="mt-2 text-xl font-semibold text-mobicheque-dark">
-                Traditional foundation. Digital future.
+            <Reveal delay={170}>
+              <p className="mt-5 text-lg leading-relaxed text-white/70">
+                MobiCheque sits in that gap. It is a verification layer: it
+                reads the cheque, checks it, and gives both sides a shared,
+                recorded view of where it stands. Clearing and settlement stay
+                exactly where they already are &mdash; with your institution.
               </p>
+            </Reveal>
 
-            </div>
-
-
+            <Reveal delay={220}>
+              <div className="mt-9 border-l-2 border-mc-green pl-6">
+                <p className="text-sm font-semibold uppercase tracking-[0.14em] text-mc-green">
+                  What that means
+                </p>
+                <p className="mt-2 text-xl font-semibold">
+                  Verification and visibility. Not another payment rail.
+                </p>
+              </div>
+            </Reveal>
           </div>
 
-
+          {/* Stats */}
+          <div className="grid gap-4">
+            {STATS.map((stat, i) => (
+              <Reveal key={stat.label} delay={i * 90}>
+                <div className="flex items-baseline gap-6 rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm">
+                  <span className="text-4xl font-semibold tracking-[-0.02em] text-mc-green md:text-5xl">
+                    {stat.value}
+                  </span>
+                  <span className="text-white/70">{stat.label}</span>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
-
-
       </div>
-
     </section>
   );
 }

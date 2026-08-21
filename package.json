@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "audit:mobile": "node scripts/mobile-audit.mjs",
+    "shot": "node scripts/shot.mjs"
   },
   "dependencies": {
     "next": "16.2.12",
@@ -17,6 +19,7 @@
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
+    "puppeteer-core": "^25.8.0",
     "tailwindcss": "^4"
   }
 }

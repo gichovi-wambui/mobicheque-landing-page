@@ -1,29 +1,237 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------
+   MobiCheque design tokens
+   ------------------------------------------------------------------ */
 :root {
-  --mobicheque-green: #00A86B;
-  --mobicheque-white: #FFFFFF;
-  --mobicheque-dark: #111827;
-  --mobicheque-gray: #4B5563;
-  --mobicheque-light: #F8FAFC;
-  --mobicheque-border: #E5E7EB;
+  /* Brand */
+  --mc-green: #00a86b;
+  --mc-green-deep: #05543a;
+  --mc-green-dark: #063d2c;
+  --mc-green-tint: #e8f7f0;
+  --mc-green-wash: #f4fbf8;
+
+  /* Ink */
+  --mc-ink: #0a1f17;
+  --mc-ink-soft: #33443d;
+  --mc-muted: #5b6b66;
+  --mc-faint: #8a9995;
+
+  /* Surface */
+  --mc-white: #ffffff;
+  --mc-surface: #f7faf9;
+  --mc-border: #e3e9e6;
+  --mc-border-soft: #eef2f0;
+
+  /* Signal */
+  --mc-amber: #b7791f;
+  --mc-amber-tint: #fdf6e7;
+  --mc-red: #c53030;
+  --mc-red-tint: #fdeded;
+
+  /* Elevation */
+  --mc-shadow-sm: 0 1px 2px rgba(10, 31, 23, 0.04),
+    0 1px 3px rgba(10, 31, 23, 0.06);
+  --mc-shadow-md: 0 4px 6px -1px rgba(10, 31, 23, 0.05),
+    0 12px 24px -8px rgba(10, 31, 23, 0.08);
+  --mc-shadow-lg: 0 8px 16px -4px rgba(10, 31, 23, 0.06),
+    0 24px 48px -12px rgba(10, 31, 23, 0.12);
+  --mc-shadow-green: 0 8px 24px -6px rgba(0, 168, 107, 0.28);
 }
 
 @theme inline {
-  --color-mobicheque-green: var(--mobicheque-green);
-  --color-mobicheque-white: var(--mobicheque-white);
-  --color-mobicheque-dark: var(--mobicheque-dark);
-  --color-mobicheque-gray: var(--mobicheque-gray);
-  --color-mobicheque-light: var(--mobicheque-light);
-  --color-mobicheque-border: var(--mobicheque-border);
+  --color-mc-green: var(--mc-green);
+  --color-mc-green-deep: var(--mc-green-deep);
+  --color-mc-green-dark: var(--mc-green-dark);
+  --color-mc-green-tint: var(--mc-green-tint);
+  --color-mc-green-wash: var(--mc-green-wash);
+
+  --color-mc-ink: var(--mc-ink);
+  --color-mc-ink-soft: var(--mc-ink-soft);
+  --color-mc-muted: var(--mc-muted);
+  --color-mc-faint: var(--mc-faint);
+
+  --color-mc-white: var(--mc-white);
+  --color-mc-surface: var(--mc-surface);
+  --color-mc-border: var(--mc-border);
+  --color-mc-border-soft: var(--mc-border-soft);
+
+  --color-mc-amber: var(--mc-amber);
+  --color-mc-amber-tint: var(--mc-amber-tint);
+  --color-mc-red: var(--mc-red);
+  --color-mc-red-tint: var(--mc-red-tint);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --shadow-mc-sm: var(--mc-shadow-sm);
+  --shadow-mc-md: var(--mc-shadow-md);
+  --shadow-mc-lg: var(--mc-shadow-lg);
+  --shadow-mc-green: var(--mc-shadow-green);
 }
 
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
 html {
   scroll-behavior: smooth;
+  /* offset for the sticky navbar when jumping to #anchors */
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--mobicheque-white);
-  color: var(--mobicheque-dark);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--mc-white);
+  color: var(--mc-ink);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--mc-green);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--mc-green);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------------
+   Utilities
+   ------------------------------------------------------------------ */
+
+/* Faint grid used behind the hero */
+.mc-grid-bg {
+  background-image: linear-gradient(
+      to right,
+      rgba(10, 31, 23, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(10, 31, 23, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Radial fade so the grid dissolves toward the edges */
+.mc-fade-mask {
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    #000 40%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    #000 40%,
+    transparent 100%
+  );
+}
+
+/* ------------------------------------------------------------------
+   Motion
+   ------------------------------------------------------------------ */
+@keyframes mc-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes mc-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mc-scan {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(150px);
+    opacity: 0;
+  }
+}
+
+@keyframes mc-pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes mc-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Scroll-reveal: elements start hidden, .is-visible is added by observer */
+.mc-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--mc-delay, 0ms);
+}
+
+.mc-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.mc-animate-scan {
+  animation: mc-scan 2.6s ease-in-out infinite;
+}
+
+.mc-animate-marquee {
+  animation: mc-marquee 38s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .mc-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .mc-animate-scan,
+  .mc-animate-marquee {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

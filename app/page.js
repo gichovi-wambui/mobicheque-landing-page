@@ -1,26 +1,34 @@
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
-import About from "../components/About";
+import TrustStrip from "../components/TrustStrip";
+import Problem from "../components/Problem";
 import HowItWorks from "../components/HowItWorks";
-import Features from "../components/Features";
+import Verification from "../components/Verification";
+import Console from "../components/Console";
 import Solutions from "../components/Solutions";
-import Security from "../components/Security";
+import About from "../components/About";
+import DeepDive from "../components/DeepDive";
+import FAQ from "../components/FAQ";
 import Demo from "../components/Demo";
-import CTA from "../components/CTA";
 import Footer from "../components/Footer";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <Hero />
-      <About />
-      <HowItWorks />
-      <Features />
-      <Solutions />
-      <Security />
-      <Demo />
-      <CTA />
+      <main>
+        <Hero />
+        <TrustStrip />
+        <Problem />
+        <HowItWorks />
+        <Verification />
+        <Console />
+        <Solutions />
+        <About />
+        <DeepDive />
+        <FAQ />
+        <Demo />
+      </main>
       <Footer />
     </>
   );

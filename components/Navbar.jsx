@@ -1,184 +1,132 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { MenuIcon, CloseIcon } from "./Icons";
+import Button from "./Button";
+
+const LINKS = [
+  { href: "/product", label: "Product" },
+  { href: "/security", label: "Security" },
+  { href: "/integration", label: "Integration" },
+  { href: "/for-banks", label: "For banks" },
+  { href: "/about", label: "About" },
+];
 
 export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Keep the page from scrolling behind the open mobile sheet.
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  const close = () => setOpen(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-mobicheque-green shadow-md">
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "border-b border-mc-border bg-white/85 backdrop-blur-xl"
+          : "border-b border-transparent bg-white/60 backdrop-blur-sm"
+      }`}
+    >
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        {/* Logo */}
+        <Link
+          href="/"
+          onClick={close}
+          className="flex items-center gap-2.5"
+          aria-label="MobiCheque home"
+        >
+          <Image
+            src="/logo/logo.png"
+            alt=""
+            width={32}
+            height={32}
+            priority
+            className="h-8 w-8 rounded-lg object-contain"
+          />
+          <span className="text-lg font-semibold tracking-[-0.01em] text-mc-ink">
+            MobiCheque
+          </span>
+        </Link>
 
-      <div className="max-w-7xl mx-auto px-6 py-4">
-
-        {/* Top Navbar */}
-        <div className="flex items-center justify-between">
-
-          {/* Logo */}
-          <a
-            href="#"
-            onClick={closeMenu}
-            className="flex items-center gap-2"
-          >
-
-            <img
-              src="/logo/logo.png"
-              alt="MobiCheque Logo"
-              className="h-8 w-auto"
-            />
-
-            <span className="text-lg font-semibold text-white">
-              MobiCheque
-            </span>
-
-          </a>
-
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8 text-white">
-
-            <a
-              href="#about"
-              className="hover:text-gray-200 transition"
+        {/* Desktop links */}
+        <div className="hidden items-center gap-1 lg:flex">
+          {LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="rounded-full px-3.5 py-2 text-sm font-medium text-mc-ink-soft transition-colors hover:bg-mc-green-wash hover:text-mc-green-deep"
             >
-              About
-            </a>
-
-            <a
-              href="#how-it-works"
-              className="hover:text-gray-200 transition"
-            >
-              How It Works
-            </a>
-
-            <a
-              href="#features"
-              className="hover:text-gray-200 transition"
-            >
-              Features
-            </a>
-
-            <a
-              href="#solutions"
-              className="hover:text-gray-200 transition"
-            >
-              Solutions
-            </a>
-
-            <a
-              href="#security"
-              className="hover:text-gray-200 transition"
-            >
-              Security
-            </a>
-
-          </div>
-
-
-          {/* Mobile Hamburger */}
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition"
-            aria-label="Toggle navigation menu"
-            aria-expanded={isMenuOpen}
-          >
-
-            {isMenuOpen ? (
-              /* Close Icon */
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-7 h-7"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              /* Hamburger Icon */
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-7 h-7"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
-
-          </button>
-
+              {link.label}
+            </Link>
+          ))}
         </div>
 
+        {/* Desktop CTA */}
+        <div className="hidden lg:block">
+          <Button href="/#demo" size="md" withArrow>
+            Book a demo
+          </Button>
+        </div>
 
-        {/* Mobile Navigation Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 border-t border-white/20 pt-4">
+        {/* Mobile toggle */}
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className="rounded-lg p-2 text-mc-ink transition-colors hover:bg-mc-green-wash lg:hidden"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+        >
+          {open ? (
+            <CloseIcon className="h-6 w-6" />
+          ) : (
+            <MenuIcon className="h-6 w-6" />
+          )}
+        </button>
+      </nav>
 
-            <div className="flex flex-col gap-2">
-
-              <a
-                href="#about"
-                onClick={closeMenu}
-                className="text-white px-4 py-3 rounded-lg hover:bg-white/10 transition"
-              >
-                About
-              </a>
-
-              <a
-                href="#how-it-works"
-                onClick={closeMenu}
-                className="text-white px-4 py-3 rounded-lg hover:bg-white/10 transition"
-              >
-                How It Works
-              </a>
-
-              <a
-                href="#features"
-                onClick={closeMenu}
-                className="text-white px-4 py-3 rounded-lg hover:bg-white/10 transition"
-              >
-                Features
-              </a>
-
-              <a
-                href="#solutions"
-                onClick={closeMenu}
-                className="text-white px-4 py-3 rounded-lg hover:bg-white/10 transition"
-              >
-                Solutions
-              </a>
-
-              <a
-                href="#security"
-                onClick={closeMenu}
-                className="text-white px-4 py-3 rounded-lg hover:bg-white/10 transition"
-              >
-                Security
-              </a>
-
-            </div>
-
-          </div>
-        )}
-
+      {/* Mobile sheet */}
+      <div
+        className={`overflow-hidden border-t border-mc-border bg-white transition-[max-height,opacity] duration-300 lg:hidden ${
+          open ? "max-h-[30rem] opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="flex flex-col gap-1 px-6 py-4">
+          {LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={close}
+              className="rounded-xl px-4 py-3 text-base font-medium text-mc-ink-soft transition-colors hover:bg-mc-green-wash hover:text-mc-green-deep"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <Button
+            href="/#demo"
+            className="mt-3 w-full"
+            onClick={close}
+            withArrow
+          >
+            Book a demo
+          </Button>
+        </div>
       </div>
-
-    </nav>
+    </header>
   );
 }
