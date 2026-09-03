@@ -35,7 +35,7 @@ services:
       # Set to the onrender.com URL until a custom domain is attached, then
       # change it here and redeploy.
       - key: NEXT_PUBLIC_SITE_URL
-        value: https://mobicheque-landing.onrender.com
+        value: https://mobicheque-landing-hc2h.onrender.com
 
     headers:
       # Hashed filenames, so they can be cached indefinitely.
