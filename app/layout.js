@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "MobiCheque | Verify every cheque before you clear it",
+    default: "MobiCheque | Deposit Cheques Anytime Anywhere Zero Hassle",
     template: "%s | MobiCheque",
   },
   description:
