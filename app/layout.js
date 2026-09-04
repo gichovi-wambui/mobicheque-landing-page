@@ -38,14 +38,14 @@ export const metadata = {
   openGraph: {
     type: "website",
     siteName: "MobiCheque",
-    title: "MobiCheque | Verify every cheque before you clear it",
+    title: "MobiCheque | Deposit Cheques Anytime Anywhere Zero Hassle",
     description:
       "Scan, extract, verify and track cheques — with a full audit trail behind every decision.",
     images: ["/og.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MobiCheque | Verify every cheque before you clear it",
+    title: "MobiCheque | Deposit Cheques Anytime Anywhere Zero Hassle",
     description:
       "Scan, extract, verify and track cheques — with a full audit trail behind every decision.",
     images: ["/og.png"],
