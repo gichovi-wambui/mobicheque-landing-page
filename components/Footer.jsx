@@ -56,11 +56,11 @@ export default function Footer() {
             </p>
 
             <a
-              href="mailto:mobicheque@gmail.com"
+              href="mailto:gichoviwambui@mobicheque.com"
               className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/20"
             >
               <MailIcon className="h-4 w-4" />
-              mobicheque@gmail.com
+              gichoviwambui@mobicheque.com
             </a>
           </div>
 
