@@ -5,7 +5,7 @@ import Reveal from "./Reveal";
 import Button from "./Button";
 import { CheckIcon, MailIcon } from "./Icons";
 
-const CONTACT_EMAIL = "mobicheque@gmail.com";
+const CONTACT_EMAIL = "gichoviwambui@mobicheque.com";
 
 const ORG_TYPES = ["Bank", "SACCO", "Business", "Other"];
 
